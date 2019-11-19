@@ -1,0 +1,56 @@
+﻿@model PhotoSharingApplication.Models.Photo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Search......採用 Create範本，產生檢視畫面</title>
+</head>
+<body>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    
+    
+    @using (Html.BeginForm()) 
+    {
+        @Html.AntiForgeryToken()
+        
+        <div class="form-horizontal">
+            <h4>Photo（搜尋）</h4>......採用 Create範本，產生檢視畫面
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                <!--  欄位標題、ViewModel屬性的名稱  -->
+
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                    <!-- 文字輸入方塊 -->
+
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <br /><br />
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Search（搜尋 關鍵字）" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+    
+    <br /><br />
+
+    <div>
+        @Html.ActionLink("Back to List（回 首頁）", "Index")
+    </div>
+</body>
+</html>

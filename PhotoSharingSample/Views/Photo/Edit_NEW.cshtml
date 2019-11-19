@@ -1,0 +1,112 @@
+﻿@model PhotoSharingApplication.Models.Photo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit（原本範例沒有，這是我們額外增添的功能）</title>
+</head>
+<body>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+    <!--  (1) 這一段程式，請從「Create檢視畫面」取得。
+             因為要修改既有的圖片，想更新一張新圖片！-->
+    @using (Html.BeginForm("Edit", "Photo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Photo</h4>
+
+    <hr />  <!-- (2) 隱藏欄位！   因為不允許人家修改「文章編號」，這是獨一無二的！ -->
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.PhotoID)
+
+    <!--  (3) 這一段程式，請從「Details檢視畫面」取得。-->
+    @if (Model.PhotoFile != null)
+    {
+        <div class="photo-display">
+            <img width="800" src="@Url.Action("GetImage", "Photo", new { Model.PhotoID })" />
+            <!-- 取出圖片檔案 -->
+        </div>
+    }
+    <hr />
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <!--  (4) 這一段程式，請從「Create檢視畫面」取得。-->
+    <div class="form-group">
+        Upload new @Html.LabelFor(model => model.PhotoFile):
+        <div class="col-md-10">
+            <!-- **** 檔案上傳 **** -->
+            <input class="pic-upload-input" type="file" name="Image">
+            <!-- **** 檔案上傳 **** -->
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!--  (5) 這一段程式，請修改 ViewModel，也就是 /Models/Photo.cs的日期格式為 yyyy/MM/dd。-->
+    <div class="form-group">
+        @Html.LabelFor(model => model.CreatedDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CreatedDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CreatedDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!--  (6) 這一段程式，請修改 ViewModel，也就是 /Models/Photo.cs的日期格式為 yyyy/MM/dd。-->
+    <div class="form-group">
+        @Html.LabelFor(model => model.ModifiedDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ModifiedDate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ModifiedDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</body>
+</html>

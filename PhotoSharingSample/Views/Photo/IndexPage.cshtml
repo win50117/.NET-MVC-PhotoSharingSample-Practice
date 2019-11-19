@@ -1,0 +1,85 @@
+﻿@model IEnumerable<PhotoSharingApplication.Models.Photo>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>IndexPage== 分頁 ==  LINQ的 .Skip() 與 .Take()。</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <h4>== 分頁 ==  LINQ的 .Skip() 與 .Take()。</h4>
+    可以直接輸入頁數，例如 /Photo/IndexPage/2 或是 /Photo/IndexPage?id=3
+
+    <table class="table" border="1">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageMimeType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedDate)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @* Html.DisplayFor(modelItem => item.ImageMimeType)  // 請自己改寫，
+                        程式來源 /Views/Shared/_PhotoGallery.cshtml *@
+
+                    <!-- ********************************************************* -->
+                    @if (item.PhotoFile != null)
+                    {
+                        <img class="card-img-top" data-src="holder.js/100px225"
+                             width="150px" height="150px"
+                             src="@Url.Action("GetImage", "Photo", new { PhotoId = item.PhotoID })" />
+                    }
+                    <!-- ********************************************************* -->
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModifiedDate)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.PhotoID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.PhotoID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.PhotoID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</body>
+</html>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<PhotoSharingApplication.Models.Photo>
+
+@{
+    ViewBag.Title = "Photo Index";
+
+    // 這裡沒有出現「版面配置頁」的寫法？例如 Layout = "~/Views/Shared/....."
+    //
+    // 在 /Views目錄下有一個 _ViewStart.cshtml 檔案，統一幫所有檢視畫面寫好了
+    // 這個檔案優先權很高。所有檢視頁面都會自動加上這檔案寫的「版面配置頁」。
+    // 除非在自己的檢視頁面上，設定自己「專屬的」Layout = "~/Views/Shared/....." 才能指定自己專用的Layout。
+
+}
+
+<h2>@ViewBag.Title   -- 此為"修改後"的版本（搭配RWD、Bootstrap）</h2>
+    ......未經修改的舊畫面，名為Index_Old.cshtml。 <br />
+    （搭配PartialView。位於 /Views/Shared/_PhotoGallery.cshtml）<br /><hr /><br />
+
+<p>
+    @Html.ActionLink("Create New", "Create") ............
+    @Html.ActionLink("舊版（原本的首頁）", "Index_Old")
+</p>
+
+
+<!-- ***************************************************** -->
+<!-- 放在 /Views/Shared目錄下的 _PhotoGallery.cshtml 檔案。 -->
+@Html.Action("_PhotoGallery", "Photo")
+<!--          PartialView動作, 控制器-->
+<!-- ***************************************************** -->
+
+
+<br /><hr /><br />
+<!-- *****************************************************（自己寫的「搜尋」功能） -->
+@using (Html.BeginForm("SearchList2", "Photo", FormMethod.Get))
+{    // 三個參數分別是：(1)動作名稱、(2)控制器名稱、(3)POST或GET ，例如 FormMethod.Get
+
+    <h4>Photo（搜尋關鍵字）</h4>
+    @Html.TextBox("_SearchWord", "請輸入Title欄位的值") // 必須跟「控制器」裡面 Search動作的「輸入變數」一樣。
+    <!-- 文字輸入方塊 -->
+
+    <br /><br />
+    <input type="submit" value="Search（搜尋 關鍵字）" class="btn btn-default" />
+}
+<br /><br />
+<br /><br />
+<!-- ***************************************************** -->

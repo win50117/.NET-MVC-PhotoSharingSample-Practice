@@ -1,0 +1,47 @@
+﻿@model IEnumerable<PhotoSharingApplication.Models.Photo>
+
+    <h3>RWD效果的新畫面</h3>......資料來源 https://getbootstrap.com/docs/4.1/examples/album/
+    <hr /><br />
+
+          <div class="album py-5 bg-light">
+              <div class="container">
+                  <div class="row">
+
+                      @foreach (var item in Model)
+                      {
+
+                          <div class="col-md-4">
+                              <div class="card mb-4 shadow-sm">
+                                  <h3>
+                                      "@Html.DisplayFor(modelItem => item.Title)"
+                                  </h3>
+
+                                  <!-- ********************************************************* -->
+                                  @if (item.PhotoFile != null)
+                                  {
+                                      <img class="card-img-top" data-src="holder.js/100px225"
+                                           src="@Url.Action("GetImage", "Photo", new { PhotoId = item.PhotoID })" />
+                                  }
+                                  <!-- ********************************************************* -->
+
+
+                                  <div class="card-body">
+                                      <p class="card-text">
+                                          創作者： @Html.DisplayFor(model => item.UserName)  <br />
+                                          ...... 照片的解說文字......
+                                      </p>
+                                      <div class="d-flex justify-content-between align-items-center">
+                                          <div class="btn-group">
+                                              <button type="button" class="btn btn-sm btn-outline-secondary"> @Html.ActionLink("Details", "Details", new { id = item.PhotoID }) </button>
+                                              <button type="button" class="btn btn-sm btn-outline-secondary"> @Html.ActionLink("Delete", "Delete", new { id = item.PhotoID }) </button>
+                                          </div>
+                                          <small class="text-muted">日期：@Html.DisplayFor(model => item.CreatedDate)</small>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      }
+
+                  </div>
+              </div>
+          </div>

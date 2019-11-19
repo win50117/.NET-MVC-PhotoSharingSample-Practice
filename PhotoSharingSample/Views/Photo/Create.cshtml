@@ -1,0 +1,86 @@
+﻿@model PhotoSharingApplication.Models.Photo
+
+@{
+    ViewBag.Title = "Create New Photo";
+
+    // 為什麼這裡沒有出現「版面配置頁」的寫法？例如 Layout = "~/Views/Shared/....."
+    //
+    // 因為在 /Views目錄下有一個 _ViewStart.cshtml 檔案，統一幫所有檢視畫面寫好了！
+    // 這個檔案優先權很高。所有檢視頁面都會自動加上這檔案寫的「版面配置頁」。
+    // 除非您在自己的檢視頁面上，設定自己「專屬的」Layout = "~/Views/Shared/....." 才能指定自己專用的Layout。
+
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Create", "Photo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{   // 三個參數分別是：(1)動作名稱、(2)控制器名稱、(3)POST或GET ，例如 FormMethod.Get
+    @Html.ValidationSummary(true)
+
+    <div>
+        <span class="editor-label">
+            @Html.LabelFor(model => model.Title):
+        </span>
+        <span class="editor-field">
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </span>
+    </div>
+
+    <div>
+        <span class="editor-label">
+            Upload new @Html.LabelFor(model=>model.PhotoFile):
+        </span>
+        <span class="editor-field">
+            <!-- **** 檔案上傳 **** --> 
+            <input class="pic-upload-input" type="file" name="Image">
+            <!-- **** 檔案上傳 **** --> 
+        </span>
+    </div>
+
+    <div>
+        <span class="editor-label">
+            @Html.LabelFor(model => model.Description):
+        </span>
+        <span class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </span>
+    </div>
+
+    <div>
+        <span class="editor-label">
+            @Html.LabelFor(model => model.UserName):
+        </span>
+        <span class="editor-field">
+            @Html.DisplayFor(model => model.UserName)
+        </span>
+    </div>
+
+    <div>
+        <span class="editor-label">
+            @Html.LabelFor(model => model.CreatedDate):
+        </span>
+        <span class="editor-field">
+            @Html.DisplayFor(model => model.CreatedDate)
+        </span>
+    </div>
+
+    <div>
+        <span class="editor-label">
+            @Html.LabelFor(model => model.ModifiedDate):
+        </span>
+        <span class="editor-field">
+            @Html.DisplayFor(model => model.ModifiedDate)
+        </span>
+    </div>
+
+    <p>
+        <input type="submit" value="Create" /> 
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

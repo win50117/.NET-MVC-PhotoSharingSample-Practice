@@ -1,0 +1,28 @@
+﻿@model IEnumerable<PhotoSharingApplication.Models.Photo>
+
+    @{
+        ViewBag.Title1 = "Photo Index_Old";
+
+        // 為什麼這裡沒有出現「版面配置頁」的寫法？例如 Layout = "~/Views/Shared/....."
+        //
+        // 因為在 /Views目錄下有一個 _ViewStart.cshtml 檔案，統一幫所有檢視畫面寫好了！
+        // 這個檔案優先權很高。所有檢視頁面都會自動加上這檔案寫的「版面配置頁」。
+        // 除非您在自己的檢視頁面上，設定自己「專屬的」Layout = "~/Views/Shared/....." 才能指定自己專用的Layout。
+
+    }
+
+    <h2>@ViewBag.Title1  -  未經修改的舊畫面</h2>
+    （搭配PartialView。位於 /Views/Shared/_PhotoGallery_Old.cshtml）
+    <br /><hr /><br />
+
+    <p>
+        @Html.ActionLink("Create New", "Create") ............ @Html.ActionLink("新版（RWD首頁）", "Index")
+    </p>
+
+
+    <!-- ***************************************************** -->
+    <!-- 放在 /Views/Shared目錄下的 _PhotoGallery_Old.cshtml 檔案。 -->
+    @Html.Action("_PhotoGallery_Old", "Photo")
+    <!-- ***************************************************** -->
+
+
